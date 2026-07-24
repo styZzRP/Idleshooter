@@ -1,23 +1,10 @@
 ## macOS
 .DS_Store
 
-## Xcode
-build/
-DerivedData/
-*.xcuserstate
-*.xcuserdatad/
-xcuserdata/
-*.moved-aside
-*.hmap
-*.ipa
-*.dSYM.zip
-*.dSYM
+## Editors
+.vscode/
+.idea/
 
-## Swift Package Manager
-.build/
-.swiftpm/
-Packages/
-
-## Fastlane / misc
-fastlane/report.xml
-fastlane/screenshots/
+## Node (only used for the optional local server / tests)
+node_modules/
+npm-debug.log*

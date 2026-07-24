@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0b0c14">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Idle Dot Shooter — an idle space shooter where every item in the shop is free.">
+<title>Idle Dot Shooter</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='11' fill='%233dd1ff'/><circle cx='12' cy='12' r='4' fill='%23ffffff' opacity='.35'/></svg>">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="app">
+  <main id="screens">
+    <section class="screen" id="screen-field" data-screen="field">
+      <canvas id="field"></canvas>
+
+      <div class="field-overlay">
+        <div class="hud">
+          <div class="wallet" id="hud-wallet"></div>
+          <div class="hud-row">
+            <div class="galaxy-chip" id="hud-galaxy"></div>
+            <div class="hud-flags" id="hud-flags"></div>
+          </div>
+          <div class="combo-banner hidden" id="hud-combo"></div>
+        </div>
+        <div class="ability-bar" id="ability-bar"></div>
+      </div>
+    </section>
+
+    <section class="screen hidden" id="screen-upgrades" data-screen="upgrades"></section>
+    <section class="screen hidden" id="screen-shop" data-screen="shop"></section>
+    <section class="screen hidden" id="screen-galaxy" data-screen="galaxy"></section>
+    <section class="screen hidden" id="screen-rebirth" data-screen="rebirth"></section>
+    <section class="screen hidden" id="screen-more" data-screen="more"></section>
+  </main>
+
+  <nav id="tabbar" aria-label="Sections"></nav>
+</div>
+
+<div id="modal-layer" class="hidden" aria-live="polite"></div>
+
+<script src="js/format.js"></script>
+<script src="js/palette.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/feedback.js"></script>
+<script src="js/save.js"></script>
+<script src="js/state.js"></script>
+<script src="js/leaderboard.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/render.js"></script>
+<script src="js/ui-components.js"></script>
+<script src="js/ui-screens.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
