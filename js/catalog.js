@@ -102,7 +102,7 @@
     // Defence
     up('damage', 'defence', 'Damage',
        'Raw punch behind every round that leaves the barrel.', '⚡',
-       15, 1.115, 5, 2.4, null, 'flat1'),
+       15, 1.115, 5, 2.4, 9999, 'flat1'),
     up('fireRate', 'defence', 'Fire Rate',
        'Shots per second. Stack it until the barrel glows.', '🔥',
        25, 1.135, 1.4, 0.11, 400, 'rate2'),
@@ -114,7 +114,7 @@
        180, 1.27, 0.03, 0.007, 96, 'pct1'),
     up('critDamage', 'defence', 'Crit Damage',
        'How hard a critical hit lands when it does.', '🎯',
-       220, 1.19, 2, 0.15, null, 'mult'),
+       220, 1.19, 2, 0.15, 9999, 'mult'),
     up('bulletSpeed', 'defence', 'Bullet Speed',
        'Rounds reach drifting targets sooner.', '🚀',
        60, 1.145, 420, 16, 120, 'points'),
@@ -157,7 +157,7 @@
        30, 1.185, 12, 2, 114, 'points'),
     up('dotValue', 'economy', 'Dot Value',
        'Every popped dot is worth this much more.', '💵',
-       20, 1.12, 1, 0.12, null, 'mult'),
+       20, 1.12, 1, 0.12, 9999, 'mult'),
     up('spawnRate', 'economy', 'Spawn Rate',
        'Fresh dots pushed into the field each second.', '♻️',
        35, 1.155, 1.1, 0.22, 200, 'rate2'),
@@ -169,7 +169,7 @@
        260, 1.215, 1.6, 0.12, 70, 'seconds'),
     up('idleIncome', 'economy', 'Idle Income',
        'Passive cash that keeps ticking, dots or no dots.', '♾️',
-       6000, 1.46, 0, 0.9, null, 'rate1'),
+       6000, 1.46, 0, 0.9, 9999, 'rate1'),
     up('goldenDots', 'economy', 'Golden Dots',
        'Chance for a golden dot worth 25x the usual haul.', '⭐',
        9500, 1.43, 0, 0.004, 60, 'pct1'),
@@ -181,12 +181,10 @@
   var UPGRADE_BY_ID = {};
   UPGRADES.forEach(function (def) { UPGRADE_BY_ID[def.id] = def; });
 
-  /* Four upgrades (Damage, Crit Damage, Dot Value, Idle Income) have no cap, so
-     "max everything" needs a defined stopping point for them. */
-  var UNCAPPED_MAX_LEVEL = 250;
-
+  /* Every upgrade carries a cap. The fallback only matters if one is ever
+     added without a maxLevel. */
   function upgradeTopLevel(def) {
-    return def.maxLevel === null ? UNCAPPED_MAX_LEVEL : def.maxLevel;
+    return def.maxLevel === null ? 1000 : def.maxLevel;
   }
 
   function upgradeValue(def, level) { return def.base + def.perLevel * level; }
@@ -521,8 +519,8 @@
   var SHOP_ITEMS = [
     // Featured
     shop('boost.maxall', 'featured', 'Full Arsenal',
-         'Every upgrade in Defence, Drone and Economy jumps straight to its highest level. ' +
-         'The four uncapped ones go to level ' + UNCAPPED_MAX_LEVEL + '. Claim it again after a rebirth.',
+         'Every upgrade in Defence, Drone and Economy jumps straight to its highest level, ' +
+         'all the way to Lv 9999 on the deep ones. Claim it again after a rebirth.',
          '🔝', 'crimson',
          '€49,99', true, 'MAX OUT',
          [{ t: 'maxUpgrades' }]),
@@ -643,7 +641,6 @@
     upgradesIn: function (category) {
       return UPGRADES.filter(function (d) { return d.category === category; });
     },
-    UNCAPPED_MAX_LEVEL: UNCAPPED_MAX_LEVEL,
     upgradeTopLevel: upgradeTopLevel,
     upgradeValue: upgradeValue,
     upgradeMaxed: upgradeMaxed,
