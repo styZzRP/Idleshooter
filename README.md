@@ -50,7 +50,10 @@ Je Luck-stat verschuift elke spawn-worp richting de bovenkant van de tabel.
 | Damage, Fire Rate, Multishot, Crit Chance, Crit Damage, Bullet Speed, Pierce, Explosive Rounds | Speed, Suction, Agility, Size, Magnet Power, Drone Count, Collector Bonus, Orb Lifetime | Capacity, Dot Value, Spawn Rate, Luck, Combo Window, Idle Income, Golden Dots, Offline Rate |
 
 Kopen kan per 1, 10, 25 of MAX; de MAX-knop rekent uit hoeveel levels je
-portemonnee aankan.
+portemonnee aankan. Wie geen zin heeft in de klim: **Full Arsenal** bovenaan de
+shop zet in één klik alle 24 upgrades op hun hoogste level (de vier zonder cap
+gaan naar level 250). Dat item is herbruikbaar, dus na een rebirth claim je hem
+gewoon opnieuw.
 
 **Drie abilities.** *Frenzy* (rapid fire), *Dot Rain* (regen van dots over het
 veld) en *Black Hole* (zwaartekrachtput die alles opslokt en uitbetaalt). Elk

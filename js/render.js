@@ -321,6 +321,17 @@
       var p = particles[i];
       if (p.life <= 0) continue;
       var alpha = Math.max(0, p.life / Math.max(0.01, p.maxLife));
+
+      if (p.ring) {
+        // Expanding shockwave.
+        ctx.strokeStyle = 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + alpha * 0.55 + ')';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * (1.05 - alpha * 0.55), 0, Math.PI * 2);
+        ctx.stroke();
+        continue;
+      }
+
       var radius = p.radius * (0.4 + alpha * 0.6);
       ctx.fillStyle = 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + alpha + ')';
       ctx.beginPath();

@@ -99,6 +99,9 @@
     this.incomeWindow = 0;
     this.knownResetToken = state.fieldResetToken;
     this.primed = false;
+    /* At high fire rates hundreds of crits land per second; without this the
+       field would be a wall of damage numbers. */
+    this.critLabelCooldown = 0;
   }
 
   GameEngine.prototype.takeID = function () { return ++this.nextID; };
@@ -422,6 +425,7 @@
     var height = this.playHeight;
     var stats = this.state.stats;
     var damageNumbers = this.state.settings.damageNumbers;
+    this.critLabelCooldown = Math.max(0, this.critLabelCooldown - dt);
 
     for (var i = 0; i < this.bullets.length; i++) {
       var bullet = this.bullets[i];
@@ -450,7 +454,8 @@
       if (bullet.isCrit) stats.criticalHits++;
       if (bullet.damage > stats.biggestSingleHit) stats.biggestSingleHit = bullet.damage;
 
-      if (bullet.isCrit && damageNumbers) {
+      if (bullet.isCrit && damageNumbers && this.critLabelCooldown <= 0) {
+        this.critLabelCooldown = 0.12;
         this.addLabel(Fmt.number(bullet.damage), dot.x, dot.y - dot.radius - 4, 'amber', false);
       }
 
@@ -506,7 +511,9 @@
     }
 
     if (this.state.settings.particles) {
-      this.addParticle(source.x, source.y, 0, 0, 0.28, radius, [255, 140, 51]);
+      // A shockwave ring, not a filled disc — at max Explosive Rounds a solid
+      // blast would paint over the whole field.
+      this.addParticle(source.x, source.y, 0, 0, 0.28, radius, [255, 140, 51], true);
     }
   };
 
@@ -822,12 +829,13 @@
     }
   };
 
-  GameEngine.prototype.addParticle = function (x, y, vx, vy, life, radius, rgb) {
+  GameEngine.prototype.addParticle = function (x, y, vx, vy, life, radius, rgb, ring) {
     if (this.particles.length >= B.maxParticles) return;
     this.particles.push({
       x: x, y: y, vx: vx, vy: vy,
       life: life, maxLife: life, radius: radius,
-      r: rgb[0], g: rgb[1], b: rgb[2]
+      r: rgb[0], g: rgb[1], b: rgb[2],
+      ring: !!ring
     });
   };
 

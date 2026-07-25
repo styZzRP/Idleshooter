@@ -181,6 +181,14 @@
   var UPGRADE_BY_ID = {};
   UPGRADES.forEach(function (def) { UPGRADE_BY_ID[def.id] = def; });
 
+  /* Four upgrades (Damage, Crit Damage, Dot Value, Idle Income) have no cap, so
+     "max everything" needs a defined stopping point for them. */
+  var UNCAPPED_MAX_LEVEL = 250;
+
+  function upgradeTopLevel(def) {
+    return def.maxLevel === null ? UNCAPPED_MAX_LEVEL : def.maxLevel;
+  }
+
   function upgradeValue(def, level) { return def.base + def.perLevel * level; }
   function upgradeMaxed(def, level) { return def.maxLevel !== null && level >= def.maxLevel; }
   function upgradeCost(def, level) { return def.baseCost * Math.pow(def.growth, level); }
@@ -512,6 +520,12 @@
 
   var SHOP_ITEMS = [
     // Featured
+    shop('boost.maxall', 'featured', 'Full Arsenal',
+         'Every upgrade in Defence, Drone and Economy jumps straight to its highest level. ' +
+         'The four uncapped ones go to level ' + UNCAPPED_MAX_LEVEL + '. Claim it again after a rebirth.',
+         '🔝', 'crimson',
+         '€49,99', true, 'MAX OUT',
+         [{ t: 'maxUpgrades' }]),
     shop('pack.starter', 'featured', 'Starter Pack',
          'Everything a fresh turret needs to get rolling.', '📦', 'cyan',
          '€2,99', false, 'STARTER',
@@ -601,6 +615,7 @@
       case 'autoCast': return 'Abilities cast themselves';
       case 'vip': return 'VIP perks unlocked';
       case 'abilities': return 'All abilities unlocked';
+      case 'maxUpgrades': return 'Every upgrade to max level';
       case 'cosmetic': {
         var c = COSMETIC_BY_ID[effect.v];
         return c ? c.name + ' ' + SLOT_BY_ID[c.slot].title.toLowerCase() : 'Cosmetic';
@@ -628,6 +643,8 @@
     upgradesIn: function (category) {
       return UPGRADES.filter(function (d) { return d.category === category; });
     },
+    UNCAPPED_MAX_LEVEL: UNCAPPED_MAX_LEVEL,
+    upgradeTopLevel: upgradeTopLevel,
     upgradeValue: upgradeValue,
     upgradeMaxed: upgradeMaxed,
     upgradeCost: upgradeCost,

@@ -482,6 +482,19 @@
       case 'abilities':
         this.unlockAllAbilities();
         break;
+      case 'maxUpgrades': {
+        var gained = 0;
+        C.UPGRADES.forEach(function (def) {
+          var top = C.upgradeTopLevel(def);
+          var current = this.level(def.id);
+          if (top > current) {
+            gained += top - current;
+            this.upgradeLevels[def.id] = top;
+          }
+        }, this);
+        this.stats.upgradesPurchased += gained;
+        break;
+      }
       case 'cosmetic': {
         this.ownedCosmetics[effect.v] = true;
         var cosmetic = C.cosmetic(effect.v);
